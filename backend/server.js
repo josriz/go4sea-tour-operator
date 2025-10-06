@@ -25,14 +25,12 @@ pool.query('SELECT NOW()', (err, res) => {
   }
 });
 
-// === API di base ===
-
-// Route di benvenuto (opzionale)
+// === Health check per Render ===
 app.get('/', (req, res) => {
-  res.send('<h1>Backend Go4Sea</h1><p>API attiva su <a href="/api/test">/api/test</a></p>');
+  res.status(200).json({ status: 'ok', message: 'Backend Go4Sea attivo' });
 });
 
-// Test API
+// === Test API ===
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Backend Go4Sea attivo!' });
 });
@@ -108,7 +106,6 @@ app.put('/api/incarichi/:id', async (req, res) => {
 });
 
 // === API OPERATORI ===
-
 app.get('/api/operatori', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM operatori ORDER BY name');
@@ -121,7 +118,8 @@ app.get('/api/operatori', async (req, res) => {
 
 // === Avvio server ===
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Backend Go4Sea in ascolto su http://localhost:${port}`);
+  console.log(`Backend Go4Sea in ascolto su http://0.0.0.0:${port}`);
 });
 
 module.exports = app;
+
