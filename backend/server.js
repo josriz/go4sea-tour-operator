@@ -5,6 +5,9 @@ require('dotenv').config();
 
 const app = express();
 
+// 🔥 Forziamo un nuovo deploy con questo log
+console.log("🔧 FORZA DEPLOY: server.js caricato - 06/10/2025 21:45");
+
 // Usa la porta assegnata da Render (10000 di default)
 const port = process.env.PORT || 10000;
 
@@ -21,9 +24,9 @@ const pool = new Pool({
 // Test connessione database
 pool.query('SELECT NOW()', (err, res) => {
   if (err) {
-    console.error('Errore connessione DB:', err.stack);
+    console.error('🔴 Errore connessione DB:', err.stack);
   } else {
-    console.log('Connesso a PostgreSQL:', res.rows[0].now);
+    console.log('✅ Connesso a PostgreSQL:', res.rows[0].now);
   }
 });
 
@@ -119,9 +122,8 @@ app.get('/api/operatori', async (req, res) => {
 });
 
 // === Avvio server ===
-// Render richiede: ascoltare su 0.0.0.0 e sulla porta corretta
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Backend Go4Sea in ascolto su http://0.0.0.0:${port}`);
+  console.log(`✅ Backend Go4Sea in ascolto su http://0.0.0.0:${port}`);
 });
 
 module.exports = app;
