@@ -16,7 +16,6 @@ export class AddUserComponent implements OnInit {
 
   userForm!: FormGroup;
 
-  // Backend URL
   private apiUrl = 'https://go4sea-tour-operator.onrender.com/api/users';
 
   constructor(
