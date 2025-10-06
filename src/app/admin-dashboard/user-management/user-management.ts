@@ -1,8 +1,9 @@
+// src/app/admin-dashboard/users/user-management.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-// Interfaccia semplificata (risolve l'errore TS2322/TS2345)
+// Interfaccia utente
 interface User {
   id: number;
   name: string;
@@ -21,28 +22,44 @@ interface User {
 
       <!-- Form di Aggiunta/Modifica Utente -->
       <form (ngSubmit)="salvaUtente()" class="space-y-4 mb-8 p-4 border border-gray-200 rounded-xl shadow-inner bg-gray-50">
-        <h3 class="text-xl font-semibold text-blue-600 mb-4">{{ utenteSelezionato ? 'Modifica Utente' : 'Aggiungi Nuovo Utente' }}</h3>
+        <h3 class="text-xl font-semibold text-blue-600 mb-4">
+          {{ utenteSelezionato ? 'Modifica Utente' : 'Aggiungi Nuovo Utente' }}
+        </h3>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- Nome -->
           <div>
             <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
-            <input type="text" id="nome" name="nome" [(ngModel)]="nuovoUtente.name" required
-                   class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              [(ngModel)]="nuovoUtente.name"
+              required
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
           </div>
 
           <!-- Email -->
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" id="email" name="email" [(ngModel)]="nuovoUtente.email" required
-                   class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="nuovoUtente.email"
+              required
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
           </div>
 
           <!-- Ruolo -->
           <div>
             <label for="ruolo" class="block text-sm font-medium text-gray-700">Ruolo</label>
-            <select id="ruolo" name="ruolo" [(ngModel)]="nuovoUtente.role" required
-                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border bg-white">
+            <select
+              id="ruolo"
+              name="ruolo"
+              [(ngModel)]="nuovoUtente.role"
+              required
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border bg-white">
               <option value="" disabled>Seleziona ruolo</option>
               <option value="ADMIN">Amministratore</option>
               <option value="COLLABORATOR">Collaboratore</option>
@@ -52,8 +69,12 @@ interface User {
           <!-- Stato -->
           <div>
             <label for="stato" class="block text-sm font-medium text-gray-700">Stato</label>
-            <select id="stato" name="stato" [(ngModel)]="nuovoUtente.status" required
-                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border bg-white">
+            <select
+              id="stato"
+              name="stato"
+              [(ngModel)]="nuovoUtente.status"
+              required
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border bg-white">
               <option value="" disabled>Seleziona stato</option>
               <option value="Attivo">Attivo</option>
               <option value="Sospeso">Sospeso</option>
@@ -62,14 +83,17 @@ interface User {
         </div>
 
         <div class="flex space-x-4 pt-2">
-          <button type="submit" 
-                  class="flex-1 px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-150">
+          <button
+            type="submit"
+            class="flex-1 px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-150">
             {{ utenteSelezionato ? 'Aggiorna Utente' : 'Aggiungi Utente' }}
           </button>
-          
+
           @if (utenteSelezionato) {
-            <button type="button" (click)="annullaModifica()"
-                    class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition duration-150">
+            <button
+              type="button"
+              (click)="annullaModifica()"
+              class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition duration-150">
               Annulla Modifica
             </button>
           }
@@ -78,18 +102,23 @@ interface User {
 
       <!-- Filtri e Ricerca -->
       <div class="flex flex-wrap gap-4 mb-6">
-        <input type="text" [(ngModel)]="filtroTesto" placeholder="Cerca per Nome o Email..."
-               class="flex-grow p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 min-w-[200px]">
-        
-        <select [(ngModel)]="filtroRuolo"
-                class="p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white">
+        <input
+          type="text"
+          [(ngModel)]="filtroTesto"
+          placeholder="Cerca per Nome o Email..."
+          class="flex-grow p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 min-w-[200px]">
+
+        <select
+          [(ngModel)]="filtroRuolo"
+          class="p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white">
           <option value="">Tutti i Ruoli</option>
           <option value="ADMIN">Amministratore</option>
           <option value="COLLABORATOR">Collaboratore</option>
         </select>
 
-        <select [(ngModel)]="filtroStato"
-                class="p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white">
+        <select
+          [(ngModel)]="filtroStato"
+          class="p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white">
           <option value="">Tutti gli Stati</option>
           <option value="Attivo">Attivo</option>
           <option value="Sospeso">Sospeso</option>
@@ -115,18 +144,20 @@ interface User {
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.email }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.role }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                  <span [class]="'px-2 py-1 text-xs font-semibold rounded-full ' + 
+                  <span [class]="'px-2 py-1 text-xs font-semibold rounded-full ' +
                     (user.status === 'Attivo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800')">
                     {{ user.status }}
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
-                  <button (click)="modificaUtente(user)"
-                          class="text-blue-600 hover:text-blue-900 font-semibold transition duration-150">
+                  <button
+                    (click)="modificaUtente(user)"
+                    class="text-blue-600 hover:text-blue-900 font-semibold transition duration-150">
                     Modifica
                   </button>
-                  <button (click)="eliminaUtente(user.id, user.name)"
-                          class="text-red-600 hover:text-red-900 font-semibold transition duration-150">
+                  <button
+                    (click)="eliminaUtente(user.id, user.name)"
+                    class="text-red-600 hover:text-red-900 font-semibold transition duration-150">
                     Elimina
                   </button>
                 </td>
@@ -144,7 +175,7 @@ interface User {
   styles: []
 })
 export class UserManagementComponent {
-  // Lista utenti - tipo semplice risolve l'errore
+  // Lista utenti
   users: User[] = [
     { id: 1, name: 'Mario Rossi', email: 'mario.rossi@go4sea.it', role: 'ADMIN', status: 'Attivo' },
     { id: 2, name: 'Laura Verdi', email: 'laura.verdi@go4sea.it', role: 'COLLABORATOR', status: 'Attivo' },
@@ -167,7 +198,7 @@ export class UserManagementComponent {
     const filtroLower = this.filtroTesto.toLowerCase().trim();
 
     if (filtroLower) {
-      list = list.filter(u => 
+      list = list.filter(u =>
         u.name.toLowerCase().includes(filtroLower) ||
         u.email.toLowerCase().includes(filtroLower)
       );

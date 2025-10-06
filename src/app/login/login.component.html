@@ -1,69 +1,55 @@
 <div class="login-container">
-  <!-- Logo centrato -->
-  <div class="text-center my-4">
-    <img src="logo-go4sea.png" alt="Go4Sea Logo" style="max-width: 180px; width: 80%; height: auto;">
+  <div class="card">
+    <div class="card-header text-center">
+      <h4>Accedi al Sistema</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            formControlName="username"
+            [ngClass]="{ 'is-invalid': f.username.touched && f.username.invalid }"
+          />
+          <div *ngIf="f.username.touched && f.username.invalid" class="invalid-feedback">
+            <div *ngIf="f.username.errors?.['required']">Username obbligatorio</div>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            [ngClass]="{ 'is-invalid': f.password.touched && f.password.invalid }"
+          />
+          <div *ngIf="f.password.touched && f.password.invalid" class="invalid-feedback">
+            <div *ngIf="f.password.errors?.['required']">Password obbligatoria</div>
+          </div>
+        </div>
+
+        <!-- Errore generale -->
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+
+        <!-- Pulsante -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ loading ? 'Accesso in corso...' : 'Accedi' }}
+          </button>
+        </div>
+
+      </form>
+    </div>
   </div>
-
-  <h2 class="text-center">Benvenuto in Go4Sea</h2>
-  
-  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
-    
-    <!-- Username -->
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input 
-        type="text" 
-        class="form-control" 
-        id="username" 
-        [(ngModel)]="username"
-        name="username"
-        required>
-    </div>
-    
-    <!-- Password -->
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input 
-        type="password" 
-        class="form-control" 
-        id="password" 
-        [(ngModel)]="password"
-        name="password"
-        required>
-    </div>
-    
-    <!-- Ruolo: Pulsanti -->
-    <div class="mb-3">
-      <label class="form-label">Ruolo</label>
-      <div class="btn-group d-flex" role="group">
-        <button 
-          type="button" 
-          class="btn btn-outline-primary flex-fill"
-          [class.active]="selectedRole === 'admin'"
-          (click)="selectRole('admin')">
-          Amministratore
-        </button>
-        <button 
-          type="button" 
-          class="btn btn-outline-primary flex-fill"
-          [class.active]="selectedRole === 'collaboratore'"
-          (click)="selectRole('collaboratore')">
-          Collaboratore
-        </button>
-      </div>
-    </div>
-
-    <!-- Debug visivo (opzionale, da rimuovere in produzione) -->
-    <div class="alert alert-info mt-2">
-      Ruolo selezionato: <strong>{{ selectedRole }}</strong>
-    </div>
-    
-    <!-- Bottone Accedi -->
-    <button 
-      type="submit" 
-      class="btn btn-success w-100 py-2"
-      [disabled]="!loginForm.form.valid || !selectedRole">
-      Accedi
-    </button>
-  </form>
 </div>

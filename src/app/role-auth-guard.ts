@@ -1,28 +1,56 @@
-// src/app/role-auth-guard.ts - DEFINITIVO
+// src/app/role-auth-guard.ts
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './services/auth.service';
+@Injectable({
+  providedIn: 'root'
+})
+export class RoleAuthGuard implements CanActivate {
 
-export const roleAuthGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
-  const router = inject(Router);
-  
-  const userRole = authService.getUserRole();
-  const requiredRole = route.data['role'] as string; 
+  constructor(private router: Router) {}
 
-  // 1. Controllo Autenticazione
-  if (!userRole) {
-    authService.logout(); 
-    return router.createUrlTree(['/']); 
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+
+    // 1. Controlla se c'è un token
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    // 2. Verifica se il token è scaduto
+    const payload = this.parseJwt(token);
+    if (payload && payload.exp < Date.now() / 1000) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      localStorage.removeItem('username');
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    // 3. Controlla il ruolo, se richiesto
+    const expectedRole = next.data['role'];
+    const userRole = localStorage.getItem('role');
+
+    if (expectedRole && userRole !== expectedRole) {
+      // Se l'utente non ha il ruolo richiesto, reindirizza al dashboard base
+      this.router.navigate(['/dashboard']);
+      return false;
+    }
+
+    // Tutto ok: utente autenticato e con ruolo corretto
+    return true;
   }
 
-  // 2. Controllo Autorizzazione (Ruolo)
-  if (requiredRole && userRole !== requiredRole) {
-    console.warn(`Accesso negato: Ruolo ${userRole} non autorizzato per ${requiredRole}.`);
-    return router.createUrlTree(['/']); 
+  // Decodifica il payload del JWT
+  private parseJwt(token: string): any {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      console.error('Errore nella decodifica del token JWT', e);
+      return null;
+    }
   }
-  
-  // Accesso consentito
-  return true;
-};
+}

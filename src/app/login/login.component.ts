@@ -1,68 +1,75 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrl: './login.component.css'
 })
-export class LoginComponent {
-  username = '';
-  password = '';
-  selectedRole: string | null = null;
+export class LoginComponent implements OnInit {
+
+  loginForm!: FormGroup;
+  loading = false;
+  error = '';
+
+  // Backend URL
+  private apiUrl = 'https://go4sea-tour-operator.onrender.com/api/login';
 
   constructor(
-    private authService: AuthService,
+    private fb: FormBuilder,
+    private http: HttpClient,
     private router: Router
   ) {}
 
-  /**
-   * Imposta il ruolo selezionato
-   * @param role 'admin' o 'collaboratore'
-   */
-  selectRole(role: string): void {
-    this.selectedRole = role;
-    console.log('Ruolo selezionato:', this.selectedRole);
+  ngOnInit(): void {
+    // Inizializza il form
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
   }
 
-  /**
-   * Gestisce il tentativo di login
-   */
-  onLogin(): void {
-    console.log('Tentativo di login:', {
-      username: this.username,
-      password: this.password ? '***' : '',
-      selectedRole: this.selectedRole
-    });
+  // Getter per accesso facile ai controlli
+  get f() {
+    return this.loginForm.controls;
+  }
 
-    if (!this.username || !this.password || !this.selectedRole) {
-      alert('Tutti i campi sono obbligatori.');
+  onSubmit(): void {
+    this.error = '';
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
-    this.authService.login(this.username, this.password, this.selectedRole)
-      .subscribe({
-        next: (response) => {
-          console.log('Login riuscito:', response);
+    this.loading = true;
 
-          if (response.role === 'ADMIN') {
-            this.router.navigate(['/admin']);
-          } else if (response.role === 'COLLABORATOR') {
-            this.router.navigate(['/collaboratore']);
-          } else {
-            console.error('Ruolo non riconosciuto:', response.role);
-            alert('Errore: ruolo non valido.');
-          }
-        },
-        error: (err) => {
-          console.error('Login fallito:', err);
-          alert('Accesso negato. Credenziali o ruolo non validi.');
+    // Invia credenziali al backend
+    this.http.post<any>(this.apiUrl, this.loginForm.value).subscribe({
+      next: (response) => {
+        // Salva token e dati utente
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('username', response.user.username);
+        localStorage.setItem('role', response.user.role);
+
+        // Reindirizza in base al ruolo
+        if (response.user.role === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.router.navigate(['/dashboard']);
         }
-      });
+      },
+      error: (err) => {
+        this.error = 'Credenziali non valide. Riprova.';
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
   }
 }

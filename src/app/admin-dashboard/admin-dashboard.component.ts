@@ -1,77 +1,75 @@
+// src/app/admin-dashboard/admin-dashboard.component.ts
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-interface Task {
-  id: number;
-  clientName: string;
-  flight: string;
-  arrivalTime: string;
-  hotel: string;
-  hotelAddress: string;
-  operatorId: number;
-  status: string;
-}
-
-interface Operator {
-  id: number;
-  name: string;
-  phone: string;
-}
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css']
+  imports: [CommonModule, RouterLink],
+  template: `
+    <div class="container mt-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0">
+          <i class="bi bi-shield-lock-fill me-2"></i>Pannello Amministratore
+        </h3>
+        <span class="badge bg-primary">Ruolo: {{ role }}</span>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-info">
+            Benvenuto, <strong>{{ username }}</strong>. Hai accesso completo al sistema.
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-12 col-sm-6">
+          <div class="card border-primary h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-people-fill text-primary" style="font-size: 2rem;"></i>
+              <h5 class="mt-3">Gestisci Utenti</h5>
+              <p class="text-muted">Aggiungi, modifica o elimina collaboratori.</p>
+              <a
+                routerLink="/admin/users"
+                class="btn btn-outline-primary w-100">
+                Vai a Gestione Utenti
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6">
+          <div class="card border-success h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-journal-text text-success" style="font-size: 2rem;"></i>
+              <h5 class="mt-3">Visualizza Incarichi</h5>
+              <p class="text-muted">Monitora tutti gli incarichi attivi.</p>
+              <a
+                routerLink="/dashboard"
+                class="btn btn-outline-success w-100">
+                Vai al Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .card {
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+    }
+    .badge {
+      font-size: 0.9rem;
+    }
+  `]
 })
 export class AdminDashboardComponent {
-  showNewTaskForm = false;
-  tasks: Task[] = [];
-  operators: Operator[] = [
-    { id: 1, name: 'Giuseppe Bianchi', phone: '3331234567' },
-    { id: 2, name: 'Maria Rossi', phone: '3478765432' }
-  ];
-
-  newTask: Partial<Task> = {
-    status: 'assigned'
-  };
-
-  openNewTask() {
-    this.showNewTaskForm = true;
-  }
-
-  cancelTask() {
-    this.showNewTaskForm = false;
-    this.newTask = {};
-  }
-
-  createTask() {
-    const task: Task = {
-      id: Date.now(),
-      clientName: this.newTask.clientName || '',
-      flight: this.newTask.flight || '',
-      arrivalTime: this.newTask.arrivalTime || '',
-      hotel: this.newTask.hotel || '',
-      hotelAddress: this.newTask.hotelAddress || '',
-      operatorId: this.newTask.operatorId || 0,
-      status: 'assigned'
-    };
-
-    this.tasks.push(task);
-    this.showNewTaskForm = false;
-    this.newTask = {};
-
-    // Simula invio WhatsApp
-    const operator = this.operators.find(o => o.id === task.operatorId);
-    if (operator) {
-      console.log(`WhatsApp inviato a ${operator.phone}: Nuovo incarico per ${task.clientName}, arrivo ${task.arrivalTime}`);
-    }
-  }
-
-  getOperatorName(id: number): string {
-    const op = this.operators.find(o => o.id === id);
-    return op ? op.name : 'N/D';
-  }
+  username = localStorage.getItem('username') || 'Utente';
+  role = localStorage.getItem('role') || 'N/D';
 }
