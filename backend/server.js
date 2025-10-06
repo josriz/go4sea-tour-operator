@@ -4,7 +4,9 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+
+// Usa la porta assegnata da Render (10000 di default)
+const port = process.env.PORT || 10000;
 
 // Middleware
 app.use(cors());
@@ -25,7 +27,7 @@ pool.query('SELECT NOW()', (err, res) => {
   }
 });
 
-// === Health check per Render ===
+// === Health Check per Render (obbligatorio) ===
 app.get('/', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Backend Go4Sea attivo' });
 });
@@ -117,9 +119,9 @@ app.get('/api/operatori', async (req, res) => {
 });
 
 // === Avvio server ===
+// Render richiede: ascoltare su 0.0.0.0 e sulla porta corretta
 app.listen(port, '0.0.0.0', () => {
   console.log(`Backend Go4Sea in ascolto su http://0.0.0.0:${port}`);
 });
 
 module.exports = app;
-
