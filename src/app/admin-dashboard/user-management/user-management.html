@@ -1,0 +1,69 @@
+<h2>Gestione Utenti</h2>
+<p>Visualizza, aggiungi o modifica gli account utente per Go4Sea Tour Operator.</p>
+
+<div class="user-actions">
+    <button [routerLink]="['/admin/users/add']" class="btn btn-primary">➕ Aggiungi Nuovo Utente</button>
+</div>
+
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>Nome Completo</th>
+            <th>Email</th> 
+            <th>Ruolo</th>
+            <th>Stato</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td> 
+            <td><span [class]="'role-' + user.role.toLowerCase()">{{ user.role }}</span></td>
+            <td><span [class]="'status-' + user.status.toLowerCase()">{{ user.status }}</span></td>
+            <td>
+                <button [routerLink]="['/admin/users/edit', user.id]" 
+                        class="btn btn-sm btn-info">
+                    Modifica
+                </button>
+                <button (click)="deleteUser(user.id, user.name)" class="btn btn-sm btn-danger">
+                    Elimina
+                </button>
+            </td>
+        </tr>
+    </tbody><h2>Gestione Utenti</h2>
+<p>Visualizza, aggiungi o modifica gli account utente per Go4Sea Tour Operator.</p>
+
+<div class="user-actions">
+    <button [routerLink]="['/admin/users/add']" class="btn btn-primary">➕ Aggiungi Nuovo Utente</button>
+</div>
+
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>Nome Completo</th>
+            <th>Email</th> 
+            <th>Ruolo</th>
+            <th>Stato</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td> 
+            <td><span [class]="'role-' + user.role.toLowerCase()">{{ user.role }}</span></td>
+            <td><span [class]="'status-' + user.status.toLowerCase()">{{ user.status }}</span></td>
+            <td>
+                <button [routerLink]="['/admin/users/edit', user.id]" 
+                        class="btn btn-sm btn-info">
+                    Modifica
+                </button>
+                <button (click)="deleteUser(user.id, user.name)" class="btn btn-sm btn-danger">
+                    Elimina
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</table>

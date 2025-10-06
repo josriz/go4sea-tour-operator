@@ -1,0 +1,110 @@
+/* src/app/admin-dashboard/user-management/user-management.component.css - COMPLETO CON STILI TABELLA */
+
+h2 {
+    color: #2c3e50;
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+
+p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+
+/* Pulsanti Azioni */
+.user-actions {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Stile Tabella */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.user-table th, .user-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.user-table th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.user-table tr:hover {
+    background-color: #fefefe;
+}
+
+/* Stili per le Azioni nella Tabella */
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    margin-right: 5px;
+}
+
+.btn-info {
+    background-color: #3498db;
+    color: white;
+}
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Badge Ruoli e Stato */
+.role-admin, .role-collaborator, .status-attivo, .status-sospeso {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.role-admin {
+    background-color: #f39c12; /* Arancione */
+    color: white;
+}
+
+.role-collaborator {
+    background-color: #2ecc71; /* Verde */
+    color: white;
+}
+
+.status-attivo {
+    background-color: #d1ffdd;
+    color: #27ae60;
+}
+
+.status-sospeso {
+    background-color: #f7d7da;
+    color: #c0392b;
+}

@@ -1,0 +1,85 @@
+/* src/app/collaboratore-dashboard/collaboratore-dashboard.component.css - COMPLETO CON STILI */
+
+.collaboratore-layout {
+    height: 100vh;
+    background-color: #eef2f5; /* Sfondo molto chiaro */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.collaboratore-header {
+    background-color: #ffffff;
+    color: #34495e;
+    padding: 25px 50px;
+    border-bottom: 3px solid #3498db; /* Linea blu distintiva */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.collaboratore-header h1 {
+    margin: 0 0 5px 0;
+    font-size: 1.8rem;
+}
+
+/* Main Content */
+.collaboratore-main {
+    flex-grow: 1; /* Occupa lo spazio rimanente */
+    padding: 30px 50px;
+}
+
+.collaboratore-main h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 10px;
+}
+
+/* Card Container (Layout a griglia per le schede) */
+.activity-card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.activity-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    width: 300px; /* Larghezza fissa per le schede */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.activity-card h3 {
+    color: #3498db; /* Colore tema blu */
+    margin-top: 0;
+    font-size: 1.4rem;
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer informativo */
+.info-footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}

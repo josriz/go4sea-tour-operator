@@ -1,0 +1,115 @@
+/* src/app/admin-dashboard/add-user/add-user.component.css - GRAFICA MIGLIORATA */
+
+/* Intestazione */
+h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+}
+
+p {
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+/* Contenitore del Form */
+.add-user-form {
+    max-width: 700px; /* Aumentiamo leggermente la larghezza */
+    padding: 30px 40px; 
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Ombra più pronunciata */
+    border-top: 5px solid #3498db; /* Bordo superiore colorato per accento */
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold; /* Etichette in grassetto */
+    color: #34495e;
+    font-size: 0.95rem;
+}
+
+/* Campi di Input e Select */
+.form-control {
+    width: 100%;
+    padding: 12px 15px; /* Padding aumentato */
+    border: 1px solid #bdc3c7; /* Bordo più morbido */
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Ombra leggera al focus */
+    outline: none;
+    background-color: white;
+}
+
+/* Stili per la Validazione (Errori) */
+.form-control.is-invalid {
+    border-color: #e74c3c;
+}
+
+.invalid-feedback {
+    color: #e74c3c;
+    font-size: 0.85em;
+    margin-top: 5px;
+    background-color: #fbe6e6;
+    padding: 8px;
+    border-radius: 4px;
+    border-left: 3px solid #e74c3c;
+}
+
+/* Pulsanti Azioni */
+.form-actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end; /* Allineiamo i pulsanti a destra */
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none; /* Per il link Annulla */
+    transition: background-color 0.3s, transform 0.2s;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #27ae60; /* Verde più scuro */
+    color: white;
+}
+.btn-success:hover:not(:disabled) {
+    background-color: #2ecc71;
+    transform: translateY(-1px);
+}
+.btn-success:disabled {
+    background-color: #a3e4b7;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-secondary {
+    background-color: #7f8c8d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #95a5a6;
+    transform: translateY(-1px);
+}

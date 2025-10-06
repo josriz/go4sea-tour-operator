@@ -1,0 +1,85 @@
+/* src/app/login/login.component.css - Versione Finale e Corretta */
+
+/* Container principale del Login */
+.login-container {
+  max-width: 450px; 
+  width: 90%; 
+  
+  padding: 40px; 
+  
+  background-color: #ffffff;
+  border-radius: 12px; 
+  
+  border: 1px solid #dee2e6; 
+  
+  /* Mantieni il centro a livello globale, ma aggiungiamo Flexbox per sicurezza */
+  margin: 0 auto; 
+  
+  /* NUOVO: Usa Flexbox per centrare eventuali elementi che non sono a blocco */
+  display: flex;
+  flex-direction: column; /* Impila gli elementi verticalmente */
+  align-items: center; /* Centra orizzontalmente i figli (il form) */
+
+  /* Questa è la riga che hai tolto (0 auto), rimettiamola in modo che il browser la veda! */
+  margin-top: 0 !important;
+}
+
+/* Stile Intestazione */
+.login-container h2 {
+    text-align: center; /* Il titolo DEVE essere centrato nel suo spazio */
+    margin-bottom: 35px; 
+    color: #0056b3; 
+    font-weight: 700; 
+    font-size: 1.8rem;
+    width: 100%; /* Assicura che l'H2 sia largo quanto il container */
+}
+
+/* Stile Form - Rimuoviamo il 'width' per lasciare fare a Flexbox */
+form {
+    width: 100%; /* Assicura che il form occupi tutto lo spazio del container */
+    max-width: 350px; /* Limita leggermente la larghezza del form per estetica */
+}
+
+/* Stile Etichette (Distanziate e corrette) */
+.form-label {
+    font-weight: 600; 
+    color: #333; 
+    display: block; 
+    margin-bottom: 8px; 
+}
+
+/* Stile Campi Input e Select */
+.form-control {
+    padding: 12px 15px; 
+    border-radius: 8px; 
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Spazio tra i gruppi di form (Username, Password, Ruolo) */
+.mb-3 {
+    margin-bottom: 25px !important; 
+}
+
+/* Stile Bottone "Accedi" */
+.login-container .btn-primary {
+    width: 100%;
+    padding: 15px; 
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-top: 30px; 
+    border-radius: 8px; 
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.2s;
+}
+
+.login-container .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

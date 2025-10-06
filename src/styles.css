@@ -1,0 +1,31 @@
+/* src/styles.css - CORREZIONE PER COMPATTARE IL LAYOUT ADMIN */
+
+/* 1. Reset base per rimuovere margini/padding del body e HTML */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* Imposta un font-size base più piccolo e neutrale per l'intera app */
+    font-size: 15px; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* 2. Regola specifica per l'area ADMIN (se la vuoi rendere più piccola) */
+/* Questa regola è specifica e si applica solo all'area del layout Admin */
+app-admin-dashboard {
+    /* Forziamo un reset per tutti i tag all'interno della dashboard */
+    * {
+        box-sizing: border-box; /* Cruciale per evitare che padding e border ingrandiscano gli elementi */
+        /* Rimuoviamo i margini predefiniti dei paragrafi e titoli */
+        margin-top: 0;
+        margin-bottom: 0; 
+        /* Riduciamo leggermente i font-size predefiniti per i titoli */
+    }
+    
+    /* Regola per i titoli per eliminare i margini eccessivi */
+    h1, h2, h3, h4, h5 {
+        margin-top: 0.5em; 
+        margin-bottom: 0.5em;
+        line-height: 1.2; /* Line height compatto */
+    }
+}

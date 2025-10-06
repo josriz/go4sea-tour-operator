@@ -1,0 +1,8 @@
+/* src/app/admin-dashboard/property-management/property-management.component.css */
+.placeholder-content {
+    padding: 20px;
+    border: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-top: 20px;
+}
