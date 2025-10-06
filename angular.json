@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "go4sea-tour-operator": {
+    "go4sea-tour": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -26,7 +26,11 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "outputPath": {
+              "base": "dist/go4sea-tour",
+              "browser": "browser"
+            }
           },
           "configurations": {
             "production": {
@@ -42,7 +46,13 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
@@ -56,10 +66,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "go4sea-tour-operator:build:production"
+              "buildTarget": "go4sea-tour:build:production"
             },
             "development": {
-              "buildTarget": "go4sea-tour-operator:build:development"
+              "buildTarget": "go4sea-tour:build:development"
             }
           },
           "defaultConfiguration": "development"
