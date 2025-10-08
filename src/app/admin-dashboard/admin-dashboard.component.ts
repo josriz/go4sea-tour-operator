@@ -31,7 +31,9 @@ import { CommonModule } from '@angular/common';
               <i class="bi bi-people-fill text-primary" style="font-size: 2rem;"></i>
               <h5 class="mt-3">Gestisci Utenti</h5>
               <p class="text-muted">Aggiungi, modifica o elimina collaboratori.</p>
-              <a routerLink="/admin/users" class="btn btn-outline-primary w-100">
+              <a
+                routerLink="/admin/users"
+                class="btn btn-outline-primary w-100">
                 Vai a Gestione Utenti
               </a>
             </div>
@@ -44,7 +46,9 @@ import { CommonModule } from '@angular/common';
               <i class="bi bi-journal-text text-success" style="font-size: 2rem;"></i>
               <h5 class="mt-3">Visualizza Incarichi</h5>
               <p class="text-muted">Monitora tutti gli incarichi attivi.</p>
-              <a routerLink="/dashboard" class="btn btn-outline-success w-100">
+              <a
+                routerLink="/dashboard"
+                class="btn btn-outline-success w-100">
                 Vai al Dashboard
               </a>
             </div>
@@ -54,8 +58,15 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   styles: [`
-    .card { transition: transform 0.2s; }
-    .card:hover { transform: translateY(-2px); }
+    .card {
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+    }
+    .badge {
+      font-size: 0.9rem;
+    }
   `]
 })
 export class AdminDashboardComponent {
