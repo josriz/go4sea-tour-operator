@@ -1,27 +1,12 @@
-// src/app/app.component.ts - DEFINITIVO
-
+// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from './services/auth.service';
-import { CommonModule } from '@angular/common';
+import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule], 
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [RouterOutlet, DialogModalComponent],
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'Go4Sea';
-
-  constructor(private authService: AuthService) {}
-
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
-  onLogout(): void {
-    this.authService.logout();
-  }
-}
+export class AppComponent {}

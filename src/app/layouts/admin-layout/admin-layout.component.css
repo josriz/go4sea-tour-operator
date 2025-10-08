@@ -1,0 +1,45 @@
+@media (max-width: 991px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    border-radius: 0 0 12px 12px;
+    box-shadow: none;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    min-height: unset;
+  }
+  .content {
+    margin-left: 0 !important;
+  }
+  .sidebar nav {
+    flex-direction: row !important;
+    justify-content: center;
+    gap: 8px;
+  }
+  .sidebar a {
+    margin-bottom: 0;
+    font-size: 1rem;
+    border-radius: 6px !important;
+    padding: 10px 8px !important;
+  }
+  .sidebar h4 { margin-bottom: 8px; }
+}
+
+/* Per smartphone e piccoli tablet */
+@media (max-width: 575px) {
+  .modal { width: 95vw !important; }
+  .admin-layout { padding-bottom: 60px; }
+  .header, .page-content { padding: 10px !important; }
+  .sidebar nav .nav-link {
+    font-size: 0.93rem !important;
+    padding: 7px 6px !important;
+  }
+  .sidebar {
+    padding: 2px 0 !important;
+  }
+  .sidebar h4 { font-size: 1rem; }
+}

@@ -1,46 +1,31 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { CollaboratoreDashboardComponent } from './collaboratore-dashboard/collaboratore-dashboard.component';
-import { roleAuthGuard } from './role-auth-guard';
-
-// Importazioni Utenti
-import { UserManagementComponent } from './admin-dashboard/user-management/user-management';
-import { AddUserComponent } from './admin-dashboard/add-user/add-user.component';
-
-// Importazioni NUOVI Componenti (usano il nome della classe corretto)
-import { ClientManagementComponent } from './admin-dashboard/client-management/client-management.component';
-import { PropertyManagementComponent } from './admin-dashboard/property-management/property-management.component';
-import { BookingManagementComponent } from './admin-dashboard/booking-management/booking-management.component'; // ← Import aggiunto
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { ClientManagementComponent } from './admin/admin-dashboard/client-management/client-management.component';
+import { IncarichiComponent } from './admin/admin-dashboard/incarichi/incarichi.component';
+import { ReportComponent } from './admin/admin-dashboard/report/report.component';
+import { ImpostazioniComponent } from './admin/admin-dashboard/impostazioni/impostazioni.component';
+import { CollaboratoreDashboardComponent } from './admin/admin-dashboard/collaboratore-dashboard/collaboratore-dashboard.component';
+import { RoleAuthGuard } from './guards/role-auth-guard';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-
   {
     path: 'admin',
-    component: AdminDashboardComponent,
-    canActivate: [roleAuthGuard],
-    data: { role: 'ADMIN' },
+    component: AdminLayoutComponent,
+    canActivate: [RoleAuthGuard],
     children: [
-      { path: '', redirectTo: 'users', pathMatch: 'full' },
-
-      { path: 'users', component: UserManagementComponent },
-      { path: 'users/add', component: AddUserComponent },
-      { path: 'users/edit/:id', component: AddUserComponent },
-
-      { path: 'clients', component: ClientManagementComponent },
-      { path: 'properties', component: PropertyManagementComponent },
-      { path: 'reservations', component: BookingManagementComponent } // ← Rotta aggiunta
+      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'clienti', component: ClientManagementComponent },
+      { path: 'incarichi', component: IncarichiComponent },
+      { path: 'report', component: ReportComponent },
+      { path: 'impostazioni', component: ImpostazioniComponent },
+      { path: 'collaboratori', component: CollaboratoreDashboardComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
-
-  {
-    path: 'collaboratore',
-    component: CollaboratoreDashboardComponent,
-    canActivate: [roleAuthGuard],
-    data: { role: 'COLLABORATOR' }
-  },
-
-  { path: '**', redirectTo: '' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
 ];

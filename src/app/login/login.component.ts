@@ -1,75 +1,112 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+// src/app/login/login.component.ts
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AuthService, LoginResponse } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
-})
-export class LoginComponent implements OnInit {
-
-  loginForm!: FormGroup;
-  loading = false;
-  error = '';
-
-  // Backend URL
-  private apiUrl = 'https://go4sea-tour-operator.onrender.com/api/login';
-
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    // Inizializza il form
-    this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
-  }
-
-  // Getter per accesso facile ai controlli
-  get f() {
-    return this.loginForm.controls;
-  }
-
-  onSubmit(): void {
-    this.error = '';
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
+  imports: [CommonModule, FormsModule],
+  template: `
+    <div class="login-container">
+      <div class="login-box">
+        <h2>Go4Sea Tour Operator</h2>
+        <form (ngSubmit)="onLogin()">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" [(ngModel)]="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" [(ngModel)]="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <label>Ruolo</label>
+            <select [(ngModel)]="role" name="role" required>
+              <option value="ADMIN">Amministratore</option>
+              <option value="COLLABORATOR">Collaboratore</option>
+            </select>
+          </div>
+          <button type="submit" [disabled]="loading">
+            {{ loading ? 'Accesso in corso...' : 'Accedi' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f2f5;
     }
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h2 { margin-bottom: 20px; color: #333; }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+  `]
+})
+export class LoginComponent {
+  username = '';
+  password = '';
+  role = 'ADMIN';
+  loading = false;
 
+  constructor(private authService: AuthService, private router: Router) {}
+
+  async onLogin() {
     this.loading = true;
-
-    // Invia credenziali al backend
-    this.http.post<any>(this.apiUrl, this.loginForm.value).subscribe({
-      next: (response) => {
-        // Salva token e dati utente
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('username', response.user.username);
-        localStorage.setItem('role', response.user.role);
-
-        // Reindirizza in base al ruolo
-        if (response.user.role === 'admin') {
-          this.router.navigate(['/admin/dashboard']);
-        } else {
-          this.router.navigate(['/dashboard']);
-        }
-      },
-      error: (err) => {
-        this.error = 'Credenziali non valide. Riprova.';
-        this.loading = false;
-      },
-      complete: () => {
-        this.loading = false;
-      }
-    });
+    try {
+      const res: LoginResponse = await this.authService.login(this.username, this.password, this.role);
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('username', res.username);
+      localStorage.setItem('role', res.role);
+      this.authService.setLoggedIn(true);
+      this.router.navigate(['/admin']);
+    } catch (error) {
+      alert('Login fallito. Verifica credenziali.');
+      this.loading = false;
+    }
   }
 }

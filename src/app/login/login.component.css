@@ -1,22 +1,20 @@
+/* src/app/login/login.component.css */
 .login-container {
   max-width: 400px;
-  margin: 50px auto;
-  padding: 0 15px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
-.card {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.btn-outline-primary.active {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
 }
 
-.form-control.is-invalid {
-  border-color: #dc3545;
-}
-
-.invalid-feedback {
+.alert-info {
   font-size: 0.875rem;
-}
-
-.spinner-border {
-  width: 1rem;
-  height: 1rem;
+  padding: 0.5rem;
 }

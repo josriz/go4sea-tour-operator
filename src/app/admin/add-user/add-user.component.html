@@ -1,0 +1,41 @@
+<form (ngSubmit)="addTask()" class="p-4">
+  <h3>Nuovo incarico</h3>
+
+  <div class="mb-3">
+    <label>Descrizione</label>
+    <input type="text" [(ngModel)]="newTask.description" name="description" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Cliente</label>
+    <input type="text" [(ngModel)]="newTask.clientName" name="clientName" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Volo</label>
+    <input type="text" [(ngModel)]="newTask.flight" name="flight" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Arrivo</label>
+    <input type="text" [(ngModel)]="newTask.arrivalTime" name="arrivalTime" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Hotel</label>
+    <input type="text" [(ngModel)]="newTask.hotel" name="hotel" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Operatore</label>
+    <select [(ngModel)]="newTask.operatorId" name="operatorId" class="form-control">
+      <option [value]="1">Marco</option>
+      <option [value]="2">Luca</option>
+    </select>
+  </div>
+
+  <div class="mt-3">
+    <button type="submit" class="btn btn-success">Aggiungi</button>
+    <button type="button" (click)="cancelTask()" class="btn btn-secondary ms-2">Annulla</button>
+  </div>
+</form>

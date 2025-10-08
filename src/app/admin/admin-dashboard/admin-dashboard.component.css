@@ -1,0 +1,37 @@
+/* Wrapper principale flex */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #f3f4f6; /* leggero background */
+}
+
+/* Sidebar stretta */
+.sidebar {
+  width: 180px; /* ridotta */
+  background: #1f2937;
+  color: white;
+  padding: 20px;
+  overflow-y: auto; /* scroll se lunga */
+}
+
+/* Contenuto principale */
+.main-content {
+  flex: 1; /* occupa tutto lo spazio restante */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+  .main-content {
+    padding: 10px;
+  }
+}
