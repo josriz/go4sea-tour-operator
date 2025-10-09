@@ -1,31 +1,60 @@
-/* src/styles.css - CORREZIONE PER COMPATTARE IL LAYOUT ADMIN */
+/* src/styles.css - STILI GLOBALI E OTTIMIZZAZIONE LAYOUT ADMIN COMPATTO */
 
-/* 1. Reset base per rimuovere margini/padding del body e HTML */
+/* ========================================================================= */
+/* 1. RESET BASE GLOBALE */
+/* Applicato a tutta l'applicazione per una base di partenza coerente. */
+/* ========================================================================= */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    /* Imposta un font-size base più piccolo e neutrale per l'intera app */
-    font-size: 15px; 
+    /* Utilizzo di 'rem' per un font-size base flessibile. 1 rem = 15px */
+    font-size: 0.9375rem; /* 15px */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.4; /* Line height leggermente compatto per il testo base */
+    color: #333; /* Colore del testo standard */
+    background-color: #f8f9fa; /* Sfondo leggero per il corpo pagina */
 }
 
-/* 2. Regola specifica per l'area ADMIN (se la vuoi rendere più piccola) */
-/* Questa regola è specifica e si applica solo all'area del layout Admin */
+/* 2. REGOLA GLOBALE: Box Sizing */
+/* Cruciale per il layout: padding e border non aumentano le dimensioni totali degli elementi. */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* ========================================================================= */
+/* 3. COMPATTAZIONE LAYOUT ADMIN */
+/* Regole specifiche per rendere i contenuti all'interno della dashboard più stretti. */
+/* ========================================================================= */
 app-admin-dashboard {
-    /* Forziamo un reset per tutti i tag all'interno della dashboard */
-    * {
-        box-sizing: border-box; /* Cruciale per evitare che padding e border ingrandiscano gli elementi */
-        /* Rimuoviamo i margini predefiniti dei paragrafi e titoli */
+    /* app-admin-dashboard è un elemento DOM personalizzato di Angular; assicurati che sia 'display: block' 
+       per contenere correttamente gli stili. */
+    display: block; 
+    
+    /* Regola universale per resettare margini comuni all'interno dell'area admin */
+    h1, h2, h3, h4, h5, p, ul, ol, dl, pre, table {
         margin-top: 0;
-        margin-bottom: 0; 
-        /* Riduciamo leggermente i font-size predefiniti per i titoli */
+        margin-bottom: 0; /* Rimuove tutti i margini verticali di base */
     }
     
-    /* Regola per i titoli per eliminare i margini eccessivi */
-    h1, h2, h3, h4, h5 {
-        margin-top: 0.5em; 
-        margin-bottom: 0.5em;
-        line-height: 1.2; /* Line height compatto */
+    /* Gestione dei margini dei titoli (H1-H5) */
+    h1, h2, h3 {
+        /* Line height compatto per i titoli */
+        line-height: 1.2; 
+        /* Rifornisce solo un margine inferiore ridotto */
+        margin-bottom: 0.8em; 
+        /* Riduci il font-size solo all'interno della dashboard se necessario */
+    }
+
+    /* Stili per le label e gli input dei form per compattare gli spazi */
+    label {
+        font-weight: 600;
+        display: block; /* Assicura che la label sia su una riga separata se necessario */
+        margin-bottom: 0.25rem; /* Margine molto ridotto sotto la label */
+    }
+
+    /* Regola per i paragrafi */
+    p {
+        margin-bottom: 0.75rem; /* Margine ridotto tra i paragrafi */
     }
 }
